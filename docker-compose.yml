@@ -1,0 +1,20 @@
+services:
+  transaction-sender-service:
+    build:
+      context: ./transaction-sender-service
+      dockerfile: Dockerfile
+    container_name: transaction-sender-service
+    ports:
+      - "8080:8080"
+    depends_on:
+      - booking-system
+    environment:
+      - BOOKING_SYSTEM_URL=http://booking-system:8081
+
+  booking-system:
+    build:
+      context: ./booking-system
+      dockerfile: Dockerfile
+    container_name: booking-system
+    ports:
+      - "8081:8081"
